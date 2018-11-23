@@ -196,7 +196,7 @@ while True:
 
         # If player's hand exceeds 21, run player_busts() and break out of loop
         if player_hand.value > 21:
-            player_busts(player_hand,dealer_hand,player_chips)
+            player_busts(player_chips)
             break
 
     # If player hasn't busted, play Dealer's hand until dealer reaches 17
@@ -210,16 +210,16 @@ while True:
 
         # Run different winning scenarios
         if dealer_hand.value > 21:
-            dealer_busts(player_hand,dealer_hand,player_chips)
+            dealer_busts(player_chips)
 
         elif dealer_hand.value > player_hand.value:
-            dealer_wins(player_hand,dealer_hand,player_chips)
+            dealer_wins(player_chips)
 
         elif dealer_hand.value < player_hand.value:
-            player_wins(player_hand, dealer_hand, player_chips)
+            player_wins(player_chips)
 
         else:
-            push(player_hand, dealer_hand)
+            push()
 
     # Inform Player of their chips total
     print("\nPlayer's winnings stand at",player_chips.total)
