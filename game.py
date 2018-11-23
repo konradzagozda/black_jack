@@ -16,7 +16,7 @@ class Card:
         self.rank = rank
 
     def __str__(self):
-        return f'{self.rank} of {self.suit} '
+        return f'{self.rank} of {self.suit}'
 
 
 class Deck:
@@ -30,8 +30,11 @@ class Deck:
     def __str__(self):
         deck_comp = ''  # start with an empty string
         for i, card in enumerate(self.deck):
-            deck_comp += f'({str(i + 1)}, {card.__str__()})'
-        return 'The deck has:' + deck_comp
+            if i == 51:
+                deck_comp += f'( {str(i + 1)}, {card.__str__()} )'
+            else:
+                deck_comp += f'( {str(i + 1)}, {card.__str__()} )\n'
+        return 'The deck has:\n' + deck_comp
 
     def __len__(self):
         return len(self.deck)
@@ -167,7 +170,6 @@ while True:
     # Create & shuffle the deck, deal two cards to each player
     deck = Deck()
     deck.shuffle()
-    print(deck.__str__())
 
     player_hand = Hand()
     player_hand.add_card(deck.deal())
