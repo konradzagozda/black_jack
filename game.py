@@ -24,13 +24,13 @@ class Deck:
     def __init__(self):
         self.deck = []
         for suit in suits:
-            for rank in ranks:
+            for rank in values.keys():
                 self.deck.append(Card(suit,rank))
 
     def __str__(self):
         deck_comp = ''  # start with an empty string
-        for card in self.deck:
-            deck_comp += '\n'+card.__str__()
+        for i, card in enumerate(self.deck):
+            deck_comp += f'({str(i + 1)}, {card.__str__()})'
         return 'The deck has:' + deck_comp
 
     def __len__(self):
@@ -93,14 +93,14 @@ def hit(deck, hand):
     hand.adjust_for_ace()
 
 
-def hit_or_stand(deck,hand):
+def hit_or_stand(deck, hand):
     global playing # to control an upcoming while loop
 
     while True:
         x = input("\n\nWould you like to Hit or Stand? Enter 'h' or 's' ")
 
         if x[0].lower() == 'h':
-            hit(deck,hand) # hit() function defined above
+            hit(deck, hand) # hit() function defined above
 
         elif x[0].lower() == 's':
             print('Player stands. Dealer is playing.')
@@ -132,27 +132,27 @@ def show_value(hand):
     print('value of cards: ' + hand.value)
 
 
-def player_busts(player, dealer, chips):
+def player_busts(chips):
     print("Player busts!")
     chips.lose_bet()
 
 
-def player_wins(player, dealer, chips):
+def player_wins(chips):
     print("Player wins!")
     chips.win_bet()
 
 
-def dealer_busts(player, dealer, chips):
+def dealer_busts(chips):
     print("Dealer busts!")
     chips.win_bet()
 
 
-def dealer_wins(player, dealer, chips):
+def dealer_wins(chips):
     print("Dealer wins!")
     chips.lose_bet()
 
 
-def push(player, dealer):
+def push():
     print("Dealer and Player tie! It's a push")
 
 
@@ -167,6 +167,7 @@ while True:
     # Create & shuffle the deck, deal two cards to each player
     deck = Deck()
     deck.shuffle()
+    print(deck.__str__())
 
     player_hand = Hand()
     player_hand.add_card(deck.deal())
